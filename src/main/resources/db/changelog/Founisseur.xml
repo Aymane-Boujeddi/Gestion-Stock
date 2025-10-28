@@ -28,7 +28,7 @@
             <column name="ville" type="VARCHAR(100)">
                 <constraints nullable="false"/>
             </column>
-            <column name="ice" type="VARCHAR(15)">
+            <column name="ICE" type="VARCHAR(15)">
                 <constraints nullable="false" unique="true"/>
             </column>
             <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
@@ -38,6 +38,7 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+
     </changeSet>
 
 </databaseChangeLog>
