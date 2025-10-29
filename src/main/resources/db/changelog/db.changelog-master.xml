@@ -6,4 +6,5 @@
                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
 
     <include file="db/changelog/Founisseur.xml" />
+    <include file="db/changelog/Produit.xml" />
 </databaseChangeLog>
