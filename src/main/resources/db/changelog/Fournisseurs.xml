@@ -6,9 +6,12 @@
     http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
 
     <changeSet id="001-create-fournisseur-table" author="dev">
-        <createTable tableName="fournisseur">
+        <createTable tableName="fournisseurs">
             <column name="id" type="BIGINT" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="nom" type="VARCHAR(255)">
+                <constraints nullable="true"/>
             </column>
             <column name="raison_sociale" type="VARCHAR(255)">
                 <constraints nullable="false"/>
@@ -28,7 +31,7 @@
             <column name="ville" type="VARCHAR(100)">
                 <constraints nullable="false"/>
             </column>
-            <column name="ice" type="VARCHAR(15)">
+            <column name="ICE" type="VARCHAR(15)">
                 <constraints nullable="false" unique="true"/>
             </column>
             <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
@@ -38,6 +41,7 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+
     </changeSet>
 
 </databaseChangeLog>
