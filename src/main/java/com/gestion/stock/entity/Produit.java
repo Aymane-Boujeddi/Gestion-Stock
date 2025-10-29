@@ -1,6 +1,8 @@
 package com.gestion.stock.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 
 
 @Entity
@@ -13,13 +15,28 @@ public class Produit {
     @Column(unique = true, nullable = false)
     private String reference;
 
+    @Column(nullable = false)
     private String nom;
+
+    @Column(nullable = false)
     private String description;
+
+    @Column(nullable = false)
+    @Positive
     private double prixUnitaire;
+
+    @Column(nullable = false)
     private String categorie;
+
+
+    @Column(nullable = false)
+    @PositiveOrZero
     private int stockActuel;
+
+    @Column(nullable = false)
     private int pointCommande;
-    @Column(name="UniteMesure")
+
+    @Column(name="unite_mesure" , nullable = false)
     private String UniteMesure;
 
     public Produit() {
