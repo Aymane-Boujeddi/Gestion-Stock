@@ -7,4 +7,6 @@
 
     <include file="/db/changelog/Fournisseurs.xml"/>
 
+    <include file="db/changelog/Fournisseurs.xml" />
+    <include file="db/changelog/Produit.xml" />
 </databaseChangeLog>
