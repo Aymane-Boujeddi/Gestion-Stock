@@ -7,6 +7,7 @@ import com.gestion.stock.entity.Fournisseur;
 import com.gestion.stock.mapper.FournisseurMapper;
 import com.gestion.stock.service.FournisseurService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,13 +15,13 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/fournisseurs")
+@RequiredArgsConstructor
 public class FournisseurController {
 
-    @Autowired
-    private FournisseurService fournisseurService;
 
-    @Autowired
-    private FournisseurMapper mapper;
+    private final FournisseurService fournisseurService;
+
+    private final FournisseurMapper mapper;
 
 
 

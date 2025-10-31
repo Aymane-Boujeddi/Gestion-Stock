@@ -1,4 +1,4 @@
-package com.gestion.stock.DTO.request;
+package com.gestion.stock.dto.request;
 
 public class ProduitRequestDTO {
     private Long id;

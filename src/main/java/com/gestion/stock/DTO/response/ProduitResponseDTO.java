@@ -1,4 +1,4 @@
-package com.gestion.stock.DTO.response;
+package com.gestion.stock.dto.response;
 
 public class ProduitResponseDTO {
     private Long id;
