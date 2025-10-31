@@ -1,5 +1,6 @@
 package com.gestion.stock.dto.request;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.gestion.stock.mapper.FournisseurMapper;
 import jakarta.validation.constraints.*;
 
@@ -31,6 +32,7 @@ public class FournisseurCreateDTO {
 
     @NotBlank (message = "ICE is required")
     @Size(min = 15, max = 15, message = "ICE must be 15 characters")
+    @JsonProperty("ICE")
     private String ICE;
 
 
