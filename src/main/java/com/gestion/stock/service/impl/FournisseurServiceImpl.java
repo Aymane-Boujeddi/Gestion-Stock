@@ -43,5 +43,9 @@ public class FournisseurServiceImpl implements FournisseurService {
         return fournisseurRepository.save(existingFournisseur);
     }
 
+    @Override
+    public List<Fournisseur> getAllFournisseurs() {
+        return fournisseurRepository.findAll();
+    }
 
 }

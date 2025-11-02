@@ -11,7 +11,8 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/fournisseurs")
@@ -45,7 +46,15 @@ public class FournisseurController {
         return ResponseEntity.ok(mapper.toResponseDTO(updatedFournisseur));
     }
 
+    @GetMapping
+    public ResponseEntity<List<FournisseurResponseDTO>> getAllFournisseurs() {
+        List<Fournisseur> fournisseurs = fournisseurService.getAllFournisseurs();
 
+        List<FournisseurResponseDTO> responseDTOs = fournisseurs.stream()
+                .map(mapper::toResponseDTO)
+                .collect(Collectors.toList());
 
+        return ResponseEntity.ok(responseDTOs);
+    }
 
 }

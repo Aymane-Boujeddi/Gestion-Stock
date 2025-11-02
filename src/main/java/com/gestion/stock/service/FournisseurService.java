@@ -10,6 +10,7 @@ public interface FournisseurService {
 
     public Fournisseur createFournisseur(Fournisseur fournisseur);
     public Fournisseur updateFournisseur(Long id, Fournisseur fournisseur);
+    public List<Fournisseur> getAllFournisseurs();
 
 
 }
