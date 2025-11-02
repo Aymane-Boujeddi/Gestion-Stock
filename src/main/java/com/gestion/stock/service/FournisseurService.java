@@ -9,4 +9,10 @@ public interface FournisseurService {
 
 
     public Fournisseur createFournisseur(Fournisseur fournisseur);
+    public Fournisseur getFournisseurById(Long Id);
+    public List<Fournisseur> getAllFournisseur();
+    public boolean emailExists(String email);
+    public boolean telephoneExists(String telephone);
+    public boolean iceExists(String ICE);
+    public Fournisseur updateFournisseur(Fournisseur fournisseur,Long id);
 }

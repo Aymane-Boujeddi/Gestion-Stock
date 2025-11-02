@@ -8,4 +8,7 @@ import org.springframework.stereotype.Repository;
 public interface FournisseurRepository extends JpaRepository<Fournisseur, Long> {
 
 
+    boolean existsByEmail(String email);
+    boolean existsByICE(String ICE);
+    boolean existsByTelephone(String telephone);
 }

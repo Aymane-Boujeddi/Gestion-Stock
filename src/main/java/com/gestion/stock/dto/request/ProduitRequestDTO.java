@@ -1,7 +1,8 @@
-package com.gestion.stock.DTO.response;
+package com.gestion.stock.dto.request;
 
-public class ProduitResponseDTO {
+public class ProduitRequestDTO {
     private Long id;
+    private String reference;
     private String nom;
     private String description;
     private double prixUnitaire;
@@ -10,12 +11,32 @@ public class ProduitResponseDTO {
     private int pointCommande;
     private String UniteMesure;
 
+    public ProduitRequestDTO(Long id, String reference, String nom, String description, double prixUnitaire, String categorie, int stockActuel, int pointCommande, String uniteMesure) {
+        this.id = id;
+        this.reference = reference;
+        this.nom = nom;
+        this.description = description;
+        this.prixUnitaire = prixUnitaire;
+        this.categorie = categorie;
+        this.stockActuel = stockActuel;
+        this.pointCommande = pointCommande;
+        UniteMesure = uniteMesure;
+    }
+
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getReference() {
+        return reference;
+    }
+
+    public void setReference(String reference) {
+        this.reference = reference;
     }
 
     public String getNom() {
