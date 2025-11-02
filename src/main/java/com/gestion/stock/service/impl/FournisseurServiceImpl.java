@@ -61,6 +61,27 @@ public class FournisseurServiceImpl implements FournisseurService {
         return fournisseurRepository.save(fournisseur);
     }
 
+    @Override
+    public Fournisseur updateFournisseur(Long id, Fournisseur fournisseurDetails) {
+        Fournisseur existingFournisseur = fournisseurRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Fournisseur avec ID " + id + " non trouvé"));
+
+        if (fournisseurDetails.getNom() != null) existingFournisseur.setNom(fournisseurDetails.getNom());
+        if (fournisseurDetails.getAdresse() != null) existingFournisseur.setAdresse(fournisseurDetails.getAdresse());
+        if (fournisseurDetails.getPersonneContact() != null) existingFournisseur.setPersonneContact(fournisseurDetails.getPersonneContact());
+        if (fournisseurDetails.getEmail() != null) existingFournisseur.setEmail(fournisseurDetails.getEmail());
+        if (fournisseurDetails.getTelephone() != null) existingFournisseur.setTelephone(fournisseurDetails.getTelephone());
+        if (fournisseurDetails.getVille() != null) existingFournisseur.setVille(fournisseurDetails.getVille());
+        if (fournisseurDetails.getRaisonSociale() != null) existingFournisseur.setRaisonSociale(fournisseurDetails.getRaisonSociale());
+        if (fournisseurDetails.getICE() != null) existingFournisseur.setICE(fournisseurDetails.getICE());
+
+        return fournisseurRepository.save(existingFournisseur);
+    }
+
+    @Override
+    public List<Fournisseur> getAllFournisseurs() {
+        return fournisseurRepository.findAll();
+    }
 
 
 

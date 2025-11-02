@@ -2,6 +2,7 @@ package com.gestion.stock.controller;
 
 
 import com.gestion.stock.dto.request.FournisseurCreateDTO;
+import com.gestion.stock.dto.request.FournisseurUpdateDTO;
 import com.gestion.stock.dto.response.FournisseurResponseDTO;
 import com.gestion.stock.entity.Fournisseur;
 import com.gestion.stock.exception.DuplicateResourceException;
