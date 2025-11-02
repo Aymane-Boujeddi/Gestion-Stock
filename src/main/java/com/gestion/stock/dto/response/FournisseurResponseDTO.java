@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 @Setter
 @Getter
 public class FournisseurResponseDTO {
-    private Long id;
     private String nom;
     private String adresse;
     private String personneContact;
