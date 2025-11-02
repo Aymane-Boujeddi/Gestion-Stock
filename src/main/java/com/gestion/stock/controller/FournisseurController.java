@@ -25,6 +25,13 @@ public class FournisseurController {
 
 
 
+    @GetMapping("/{id}")
+    public ResponseEntity<FournisseurResponseDTO> getFournisseurById(@PathVariable Long id){
+        Fournisseur fournisseur = fournisseurService.getFournisseurById(id);
+        FournisseurResponseDTO fournisseurResponseDTO = mapper.toResponseDTO(fournisseur);
+        return ResponseEntity.ok(fournisseurResponseDTO);
+    }
+
 
 
     @PostMapping
@@ -35,6 +42,8 @@ public class FournisseurController {
         return ResponseEntity.ok(mapper.toResponseDTO(newFournisseurSaved));
 
     }
+
+
 
 
 

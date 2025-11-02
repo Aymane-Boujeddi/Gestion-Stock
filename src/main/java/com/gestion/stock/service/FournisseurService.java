@@ -9,4 +9,5 @@ public interface FournisseurService {
 
 
     public Fournisseur createFournisseur(Fournisseur fournisseur);
+    public Fournisseur getFournisseurById(Long Id);
 }
