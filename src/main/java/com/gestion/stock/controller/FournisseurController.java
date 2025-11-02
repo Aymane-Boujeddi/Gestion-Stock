@@ -4,6 +4,7 @@ package com.gestion.stock.controller;
 import com.gestion.stock.dto.request.FournisseurCreateDTO;
 import com.gestion.stock.dto.response.FournisseurResponseDTO;
 import com.gestion.stock.entity.Fournisseur;
+import com.gestion.stock.exception.DuplicateResourceException;
 import com.gestion.stock.mapper.FournisseurMapper;
 import com.gestion.stock.service.FournisseurService;
 import jakarta.validation.Valid;
@@ -11,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
@@ -25,6 +28,27 @@ public class FournisseurController {
 
 
 
+
+    @PostMapping
+    public ResponseEntity<FournisseurResponseDTO> createFournisseur(@Valid @RequestBody FournisseurCreateDTO fournisseurCreateDTO) throws DuplicateResourceException {
+        Fournisseur  newFournisseur = mapper.toEntity(fournisseurCreateDTO);
+        if(fournisseurService.emailExists(fournisseurCreateDTO.getEmail())){
+            throw new DuplicateResourceException("email");
+        }
+        if(fournisseurService.telephoneExists(fournisseurCreateDTO.getTelephone())){
+            throw new DuplicateResourceException("telephone");
+        }
+
+        if(fournisseurService.iceExists(fournisseurCreateDTO.getICE())){
+            throw new DuplicateResourceException("ICE");
+        }
+
+        Fournisseur newFournisseurSaved = fournisseurService.createFournisseur(newFournisseur);
+
+        return ResponseEntity.ok(mapper.toResponseDTO(newFournisseurSaved));
+
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<FournisseurResponseDTO> getFournisseurById(@PathVariable Long id){
         Fournisseur fournisseur = fournisseurService.getFournisseurById(id);
@@ -33,15 +57,17 @@ public class FournisseurController {
     }
 
 
+    @GetMapping
+    public ResponseEntity<List<FournisseurResponseDTO>> getAllFournisseurs(){
+        List<Fournisseur> fournisseurs = fournisseurService.getAllFournisseur();
+        List<FournisseurResponseDTO> fournisseursDto = fournisseurs.stream().map(fournisseur -> mapper.toResponseDTO(fournisseur)).toList();
 
-    @PostMapping
-    public ResponseEntity<FournisseurResponseDTO> createFournisseur(@Valid @RequestBody FournisseurCreateDTO fournisseurCreateDTO){
-        Fournisseur  newFournisseur = mapper.toEntity(fournisseurCreateDTO);
-        Fournisseur newFournisseurSaved = fournisseurService.createFournisseur(newFournisseur);
-
-        return ResponseEntity.ok(mapper.toResponseDTO(newFournisseurSaved));
+        return ResponseEntity.ok(fournisseursDto);
 
     }
+
+
+
 
 
 
