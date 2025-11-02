@@ -2,6 +2,7 @@ package com.gestion.stock.controller;
 
 
 import com.gestion.stock.dto.request.FournisseurCreateDTO;
+import com.gestion.stock.dto.request.FournisseurUpdateDTO;
 import com.gestion.stock.dto.response.FournisseurResponseDTO;
 import com.gestion.stock.entity.Fournisseur;
 import com.gestion.stock.mapper.FournisseurMapper;
@@ -26,13 +27,22 @@ public class FournisseurController {
 
 
 
-    @PostMapping
+    @PostMapping(produces = "*/*")
     public ResponseEntity<FournisseurResponseDTO> createFournisseur(@Valid @RequestBody FournisseurCreateDTO fournisseurCreateDTO){
         Fournisseur  newFournisseur = mapper.toEntity(fournisseurCreateDTO);
         Fournisseur newFournisseurSaved = fournisseurService.createFournisseur(newFournisseur);
 
         return ResponseEntity.ok(mapper.toResponseDTO(newFournisseurSaved));
 
+    }
+    @PutMapping(value = "/{id}", produces = "*/*")
+    public ResponseEntity<FournisseurResponseDTO> updateFournisseur(
+            @PathVariable Long id,
+            @Valid @RequestBody FournisseurUpdateDTO fournisseurUpdateDTO) {
+
+        Fournisseur fournisseurToUpdate = mapper.toEntity(fournisseurUpdateDTO);
+        Fournisseur updatedFournisseur = fournisseurService.updateFournisseur(id, fournisseurToUpdate);
+        return ResponseEntity.ok(mapper.toResponseDTO(updatedFournisseur));
     }
 
 
