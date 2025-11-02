@@ -10,6 +10,7 @@ import com.gestion.stock.service.FournisseurService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -63,6 +64,14 @@ public class FournisseurController {
         List<FournisseurResponseDTO> fournisseursDto = fournisseurs.stream().map(fournisseur -> mapper.toResponseDTO(fournisseur)).toList();
 
         return ResponseEntity.ok(fournisseursDto);
+
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<FournisseurResponseDTO> updateFournisseurs(@PathVariable Long id,@Valid @RequestBody FournisseurCreateDTO fournisseurUpdateDto){
+        Fournisseur fournisseur = mapper.toEntity(fournisseurUpdateDto);
+        Fournisseur updatedFournisseur = fournisseurService.updateFournisseur(fournisseur,id);
+        return ResponseEntity.ok(mapper.toResponseDTO(updatedFournisseur));
 
     }
 

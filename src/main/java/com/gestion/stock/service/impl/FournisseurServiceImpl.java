@@ -53,5 +53,15 @@ public class FournisseurServiceImpl implements FournisseurService {
         return fournisseurRepository.existsByICE(ICE);
     }
 
+    @Override
+    public Fournisseur updateFournisseur(Fournisseur fournisseur, Long id) {
+        Fournisseur currentFournisseur = getFournisseurById(id);
+        fournisseur.setId(id);
+        fournisseur.setCreatedAt(currentFournisseur.getCreatedAt());
+        return fournisseurRepository.save(fournisseur);
+    }
+
+
+
 
 }
