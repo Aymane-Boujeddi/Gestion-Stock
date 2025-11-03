@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
+import com.gestion.stock.dto.request.DetailsCommandeRequestDTO;
 
 @Getter
 @Setter
@@ -20,11 +21,11 @@ public class CommandeRequestDTO {
 
     @NotEmpty(message = "Details produits cannot be empty")
     @Valid
-    private List<DetailsCommandeDTO> detailsProduits;
+    private List<DetailsCommandeRequestDTO> detailsCommande;
 
     @Getter
     @Setter
-    public static class DetailsCommandeDTO {
+    public static class DetailsCommandeRequestDTO {
 
         @NotNull(message = "Produit ID cannot be null")
         private Long produitId;
@@ -36,4 +37,5 @@ public class CommandeRequestDTO {
         @Positive(message = "Prix must be positive")
         private Double prix;
     }
+
 }
