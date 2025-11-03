@@ -1,6 +1,7 @@
 package com.gestion.stock.controller;
 
 import com.gestion.stock.dto.request.ProduitRequestDTO;
+import com.gestion.stock.dto.response.ProduitResponseDTO;
 import com.gestion.stock.entity.Produit;
 import com.gestion.stock.mapper.ProduitMapper;
 import com.gestion.stock.service.ProduitService;
@@ -22,20 +23,21 @@ public class ProduitController {
 
 
     @PostMapping
-    public ResponseEntity<Produit> createProduit(@Valid @RequestBody ProduitRequestDTO produitRequestDTO){
+    public ResponseEntity<ProduitResponseDTO> createProduit(@Valid @RequestBody ProduitRequestDTO produitRequestDTO){
 
-      return ResponseEntity.status(HttpStatus.CREATED).body(produitService.saveProduit(mapper.toEntity(produitRequestDTO)));
+      return ResponseEntity.status(HttpStatus.CREATED).body(mapper.toResponseDto(produitService.saveProduit(mapper.toEntity(produitRequestDTO))));
 
     }
 
     @GetMapping
-    public ResponseEntity<List<Produit>> getAllProduits(){
-        return ResponseEntity.ok(produitService.allProduits());
+    public ResponseEntity<List<ProduitResponseDTO>> getAllProduits(){
+        List<ProduitResponseDTO> responseProduitsList = produitService.allProduits().stream().map(produit -> mapper.toResponseDto(produit)).toList();
+        return ResponseEntity.ok(responseProduitsList);
     }
 
     @GetMapping("/{Id}")
-    public ResponseEntity<Produit> getOneProduit(@PathVariable Long Id){
-        return ResponseEntity.ok(produitService.oneProduitById(Id));
+    public ResponseEntity<ProduitResponseDTO> getOneProduit(@PathVariable Long Id){
+        return ResponseEntity.ok(mapper.toResponseDto(produitService.oneProduitById(Id)));
     }
 
 

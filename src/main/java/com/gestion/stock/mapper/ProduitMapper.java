@@ -2,6 +2,7 @@ package com.gestion.stock.mapper;
 
 
 import com.gestion.stock.dto.request.ProduitRequestDTO;
+import com.gestion.stock.dto.response.ProduitResponseDTO;
 import com.gestion.stock.entity.Produit;
 import org.mapstruct.Mapper;
 
@@ -10,5 +11,5 @@ public interface ProduitMapper {
 
     Produit toEntity(ProduitRequestDTO dto);
 
-    ProduitRequestDTO toResponseDto(Produit produit);
+    ProduitResponseDTO toResponseDto(Produit produit);
 }
