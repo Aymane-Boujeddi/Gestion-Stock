@@ -9,4 +9,5 @@ public interface ProduitService {
     public List<Produit> allProduits();
     public Produit getProduitById(Long id);
     public Produit updateProduit(Produit produit,Long id);
+    public void deleteProduit(Long id);
 }
