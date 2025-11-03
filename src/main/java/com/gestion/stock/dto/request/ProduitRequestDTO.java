@@ -1,97 +1,45 @@
 package com.gestion.stock.dto.request;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class ProduitRequestDTO {
-    private Long id;
+
+    @NotBlank(message = "Reference can not be blank")
     private String reference;
+
+    @NotBlank(message = "Nom can not be blank")
     private String nom;
+
+    @NotBlank(message = "Description can not be blank")
     private String description;
+
+    @NotBlank(message = "Prix unitaire can not be blank")
+    @Positive(message = "Prix unitaire must be positive")
     private double prixUnitaire;
+
+    @NotBlank(message = "Categorie can not be blank")
     private String categorie;
+
+
     private int stockActuel;
+
+    @NotBlank(message = "Stock minimum can not be blank")
+    @Positive(message = "Stock minimum must be positive")
     private int pointCommande;
+
+    @NotBlank(message = "Unite mesure can not be blank")
+    @Positive(message = "Unite mesure must be positive")
     private String UniteMesure;
 
-    public ProduitRequestDTO(Long id, String reference, String nom, String description, double prixUnitaire, String categorie, int stockActuel, int pointCommande, String uniteMesure) {
-        this.id = id;
-        this.reference = reference;
-        this.nom = nom;
-        this.description = description;
-        this.prixUnitaire = prixUnitaire;
-        this.categorie = categorie;
-        this.stockActuel = stockActuel;
-        this.pointCommande = pointCommande;
-        UniteMesure = uniteMesure;
-    }
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getReference() {
-        return reference;
-    }
-
-    public void setReference(String reference) {
-        this.reference = reference;
-    }
-
-    public String getNom() {
-        return nom;
-    }
-
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public double getPrixUnitaire() {
-        return prixUnitaire;
-    }
-
-    public void setPrixUnitaire(double prixUnitaire) {
-        this.prixUnitaire = prixUnitaire;
-    }
-
-    public String getCategorie() {
-        return categorie;
-    }
-
-    public void setCategorie(String categorie) {
-        this.categorie = categorie;
-    }
-
-    public int getStockActuel() {
-        return stockActuel;
-    }
-
-    public void setStockActuel(int stockActuel) {
-        this.stockActuel = stockActuel;
-    }
-
-    public int getPointCommande() {
-        return pointCommande;
-    }
-
-    public void setPointCommande(int pointCommande) {
-        this.pointCommande = pointCommande;
-    }
-
-    public String getUniteMesure() {
-        return UniteMesure;
-    }
-
-    public void setUniteMesure(String uniteMesure) {
-        UniteMesure = uniteMesure;
-    }
 }
