@@ -7,10 +7,9 @@ import com.gestion.stock.service.ProduitService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/produits")
@@ -27,6 +26,13 @@ public class ProduitController {
       return ResponseEntity.ok(produitService.saveProduit(mapper.toEntity(produitRequestDTO)));
 
     }
+
+    @GetMapping
+    public ResponseEntity<List<Produit>> getAllProduits(){
+        return ResponseEntity.ok(produitService.allProduits());
+    }
+
+
 
 
 }
