@@ -29,7 +29,8 @@ public class ProduitRequestDTO {
     @NotBlank(message = "Categorie can not be blank")
     private String categorie;
 
-
+    @NotBlank(message = "Stock actuel can not be blank")
+    @Positive(message = "Stock actuel must be positive")
     private int stockActuel;
 
     @NotBlank(message = "Stock minimum can not be blank")
