@@ -1,6 +1,7 @@
 package com.gestion.stock.dto.response;
 
 import com.gestion.stock.enums.StatutCommande;
+import com.gestion.stock.dto.response.DetailsCommandeResponseDTO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,7 +12,6 @@ import java.util.List;
 @Setter
 public class CommandeResponseDTO {
 
-    private Long id;
     private Double montantTotale;
     private LocalDateTime dateCommande;
     private StatutCommande statutCommande;
@@ -21,10 +21,10 @@ public class CommandeResponseDTO {
     @Getter
     @Setter
     public static class DetailsCommandeResponseDTO {
-        private Long id;
         private int quantite;
         private Double prix;
         private String produitNom;
-        private Long produitId;
     }
+
+
 }
