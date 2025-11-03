@@ -37,7 +37,7 @@ public class Commande {
     @JoinColumn(name= "fournisseur_id")
     private Fournisseur fournisseur;
 
-    @OneToMany(mappedBy = "commande")
+    @OneToMany(mappedBy = "commande", cascade = CascadeType.ALL)
     private List<DetailsCommande> detailsCommandes;
 
 
