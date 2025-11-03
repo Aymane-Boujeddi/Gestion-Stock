@@ -6,6 +6,7 @@ import com.gestion.stock.mapper.ProduitMapper;
 import com.gestion.stock.service.ProduitService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +24,7 @@ public class ProduitController {
     @PostMapping
     public ResponseEntity<Produit> createProduit(@Valid @RequestBody ProduitRequestDTO produitRequestDTO){
 
-      return ResponseEntity.ok(produitService.saveProduit(mapper.toEntity(produitRequestDTO)));
+      return ResponseEntity.status(HttpStatus.CREATED).body(produitService.saveProduit(mapper.toEntity(produitRequestDTO)));
 
     }
 
@@ -36,6 +37,7 @@ public class ProduitController {
     public ResponseEntity<Produit> getOneProduit(@PathVariable Long Id){
         return ResponseEntity.ok(produitService.oneProduitById(Id));
     }
+
 
 
 
