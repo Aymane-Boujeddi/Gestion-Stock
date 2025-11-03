@@ -27,7 +27,17 @@ public class ProduitServiceImpl implements ProduitService {
     }
 
     @Override
-    public Produit oneProduitById(Long id) {
+    public Produit getProduitById(Long id) {
         return produitRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Produit Not Found with ID " + id));
+    }
+
+    @Override
+    public Produit updateProduit(Produit produit, Long id) {
+        Produit currentProduit = getProduitById(id);
+
+        produit.setId(currentProduit.getId());
+        return  produitRepository.save(produit);
+
+
     }
 }
