@@ -33,6 +33,10 @@ public class Commande {
     private StatutCommande statutCommande;
 
 
+    @ManyToOne
+    @JoinColumn(name= "fournisseur_id")
+    private Fournisseur fournisseur;
+
     @OneToMany(mappedBy = "commande")
     private List<DetailsCommande> detailsCommandes;
 

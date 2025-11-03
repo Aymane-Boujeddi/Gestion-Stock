@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "fournisseurs")
@@ -37,11 +38,16 @@ public class Fournisseur {
     @Column(name= "ICE" , nullable = false)
     private String ICE;
 
+    @OneToMany(mappedBy = "fournisseur",cascade = CascadeType.ALL)
+    private List<Commande> commandes;
+
     @Column(name = "created_at", nullable = false,updatable = false)
     private LocalDateTime createdAt;
 
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
+
+
 
 
 
