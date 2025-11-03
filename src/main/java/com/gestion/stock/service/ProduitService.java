@@ -7,4 +7,5 @@ import java.util.List;
 public interface ProduitService {
     public Produit saveProduit(Produit produit);
     public List<Produit> allProduits();
+    public Produit oneProduitById(Long id);
 }

@@ -3,6 +3,7 @@ package com.gestion.stock.service.impl;
 import com.gestion.stock.entity.Produit;
 import com.gestion.stock.repository.ProduitRepository;
 import com.gestion.stock.service.ProduitService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -23,5 +24,10 @@ public class ProduitServiceImpl implements ProduitService {
     @Override
     public List<Produit> allProduits() {
         return produitRepository.findAll();
+    }
+
+    @Override
+    public Produit oneProduitById(Long id) {
+        return produitRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Produit Not Found with ID " + id));
     }
 }
