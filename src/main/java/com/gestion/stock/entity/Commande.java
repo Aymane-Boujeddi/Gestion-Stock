@@ -23,10 +23,10 @@ public class Commande {
     private Long id;
 
     @Column(name= "montant_totale")
-    private Double montanTotale;
+    private Double montantTotale;
 
     @Column(name = "date_commande")
-    private LocalDateTime dateCommnande;
+    private LocalDateTime dateCommande;
 
     @Column(name = "statut_commande")
     @Enumerated(EnumType.STRING)
