@@ -3,6 +3,7 @@ package com.gestion.stock.controller;
 
 import com.gestion.stock.dto.request.CommandeRequestDTO;
 import com.gestion.stock.dto.response.CommandeResponseDTO;
+import com.gestion.stock.entity.Commande;
 import com.gestion.stock.mapper.CommandeMapper;
 import com.gestion.stock.service.CommandeService;
 import jakarta.validation.Valid;
@@ -28,5 +29,7 @@ public class CommandeController {
     public ResponseEntity<CommandeResponseDTO> createCommande(@Valid @RequestBody CommandeRequestDTO commandeRequestDTO){
        return ResponseEntity.ok(commandeService.saveCommande(commandeRequestDTO));
     }
+
+ 
 
 }

@@ -34,62 +34,23 @@ public class CommandeServiceImpl implements CommandeService {
     private final ProduitRepository produitRepository;
 
     private final CommandeMapper mapper;
-    private final DetailsCommandeMapper detailsCommandeMapper;
-
 
     @Override
     public CommandeResponseDTO saveCommande(CommandeRequestDTO commandeRequestDTO) {
-        Commande commande = mapper.toEntity(commandeRequestDTO);
-
-        commande.setFournisseur(fournisseurByID(commandeRequestDTO.getFournisseurId()));
-        commande.setDateCommnande(LocalDateTime.now());
-        commande.setStatutCommande(StatutCommande.EN_ATTENTE);
-
-        double montant = 0.0;
-
-        List<DetailsCommande> detailsCommandeList = commandeRequestDTO.getDetailsCommande().stream()
-                .map(dto -> {
-                    DetailsCommande detailsCommande = detailsCommandeMapper.toEntity(dto);
-                    detailsCommande.setCommande(commande);
-                    detailsCommande.setProduit(produitRepository.findById(dto.getProduitId()).get());
-                    return detailsCommande;
-
-        }).toList();
-
-        montant = detailsCommandeList.stream().mapToDouble(details -> details.getPrix() * details.getQuantite()).sum();
-        commande.setDetailsCommandes(detailsCommandeList);
-        commande.setMontanTotale(montant);
+        Commande newCommande = mapper.toEntity(commandeRequestDTO);
+        newCommande.setStatutCommande(StatutCommande.EN_ATTENTE);
+        newCommande.setDateCommande(LocalDateTime.now());
+        Double montant = newCommande.getDetailsCommandes().stream().mapToDouble(commande -> commande.getPrix() * commande.getQuantite()).sum();
+        newCommande.getDetailsCommandes().forEach(detailsCommande -> detailsCommande.setCommande(newCommande));
+        newCommande.setMontantTotale(montant);
 
 
-        return mapToResponseDto(commandeRepository.save(commande));
-
-
+        return mapper.toResponseDto(commandeRepository.save(newCommande));
     }
 
-    private Fournisseur fournisseurByID(Long id){
-        return fournisseurRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("The Fournisseur with the ID : " + id + " is not found"));
-    }
 
-    private Produit produitByID(Long id){
-        return produitRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("The Produit with the ID : " + id + " is not found"));
-    }
 
-    private CommandeResponseDTO mapToResponseDto(Commande commande){
-        CommandeResponseDTO response = mapper.toResponseDto(commande);
-        response.setDateCommande(commande.getDateCommnande());
-        response.setFournisseurNom(commande.getFournisseur().getNom());
-        response.setMontantTotale(commande.getMontanTotale());
-        List<CommandeResponseDTO.DetailsCommandeResponseDTO> detailsCommandeResponseDTOList = commande.getDetailsCommandes().stream().map(details -> {
-            CommandeResponseDTO.DetailsCommandeResponseDTO detailsCommandeResponseDTO = detailsCommandeMapper.toResponseDTO(details);
-            detailsCommandeResponseDTO.setProduitNom(details.getProduit().getNom());
-            return detailsCommandeResponseDTO;
-        }).toList();
 
-        response.setDetailsCommandes(detailsCommandeResponseDTOList);
-
-        return response;
-
-    }
 }
 
 
