@@ -9,4 +9,5 @@ import java.util.List;
 public interface CommandeService {
 
     public CommandeResponseDTO saveCommande(CommandeRequestDTO commandeRequestDTO);
+    public List<CommandeResponseDTO> allCommandes();
 }

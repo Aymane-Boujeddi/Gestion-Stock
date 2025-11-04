@@ -19,8 +19,7 @@ public abstract class  CommandeMapper {
     @Autowired
     protected FournisseurRepository fournisseurRepository;
 
-    @Mapping(target = "id",ignore = true)
-    @Mapping(target = "dateCommande",ignore = true)
+
     @Mapping(target = "fournisseur",source = "fournisseurId",qualifiedByName = "idToFournisseur")
     @Mapping(target = "detailsCommandes",source = "detailsCommande")
     @Mapping(target = "montantTotale",ignore = true)

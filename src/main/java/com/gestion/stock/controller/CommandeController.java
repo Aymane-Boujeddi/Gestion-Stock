@@ -30,6 +30,9 @@ public class CommandeController {
        return ResponseEntity.ok(commandeService.saveCommande(commandeRequestDTO));
     }
 
- 
+    @GetMapping
+    public ResponseEntity<List<CommandeResponseDTO>> getAllCommandes(){
+        return ResponseEntity.ok(commandeService.allCommandes());
+    }
 
 }

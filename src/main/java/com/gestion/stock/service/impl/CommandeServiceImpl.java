@@ -43,12 +43,15 @@ public class CommandeServiceImpl implements CommandeService {
         Double montant = newCommande.getDetailsCommandes().stream().mapToDouble(commande -> commande.getPrix() * commande.getQuantite()).sum();
         newCommande.getDetailsCommandes().forEach(detailsCommande -> detailsCommande.setCommande(newCommande));
         newCommande.setMontantTotale(montant);
-
-
         return mapper.toResponseDto(commandeRepository.save(newCommande));
     }
 
+    @Override
+    public List<CommandeResponseDTO> allCommandes() {
+        List<Commande> commandes = commandeRepository.findAll();
+        return commandes.stream().map(mapper::toResponseDto).toList();
 
+    }
 
 
 }
