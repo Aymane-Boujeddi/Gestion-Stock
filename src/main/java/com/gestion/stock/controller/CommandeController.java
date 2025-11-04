@@ -34,5 +34,9 @@ public class CommandeController {
     public ResponseEntity<List<CommandeResponseDTO>> getAllCommandes(){
         return ResponseEntity.ok(commandeService.allCommandes());
     }
+    @GetMapping("/{id}")
+    public ResponseEntity<CommandeResponseDTO> getCommandeByID(@PathVariable Long id){
+        return  ResponseEntity.ok(commandeService.commandeByID(id));
+    }
 
 }

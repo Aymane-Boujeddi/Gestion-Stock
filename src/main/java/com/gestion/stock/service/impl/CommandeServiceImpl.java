@@ -29,9 +29,6 @@ public class CommandeServiceImpl implements CommandeService {
 
     private final CommandeRepository commandeRepository;
 
-    private final FournisseurRepository fournisseurRepository;
-
-    private final ProduitRepository produitRepository;
 
     private final CommandeMapper mapper;
 
@@ -52,6 +49,14 @@ public class CommandeServiceImpl implements CommandeService {
         return commandes.stream().map(mapper::toResponseDto).toList();
 
     }
+
+    @Override
+    public CommandeResponseDTO commandeByID(Long id) {
+        Commande searchedCommande = commandeRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Commande not found : " + id));
+        return mapper.toResponseDto(searchedCommande);
+    }
+
+
 
 
 }

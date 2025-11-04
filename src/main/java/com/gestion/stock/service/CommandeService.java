@@ -10,4 +10,5 @@ public interface CommandeService {
 
     public CommandeResponseDTO saveCommande(CommandeRequestDTO commandeRequestDTO);
     public List<CommandeResponseDTO> allCommandes();
+    public CommandeResponseDTO commandeByID(Long id);
 }
