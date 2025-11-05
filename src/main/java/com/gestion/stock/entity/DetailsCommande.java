@@ -1,6 +1,8 @@
 package com.gestion.stock.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,6 +33,7 @@ public class DetailsCommande {
 
     @ManyToOne
     @JoinColumn(name = "commande_id")
+    @JsonBackReference
     private Commande commande;
 
 

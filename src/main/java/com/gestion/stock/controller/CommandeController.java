@@ -2,6 +2,8 @@ package com.gestion.stock.controller;
 
 
 import com.gestion.stock.dto.request.CommandeRequestDTO;
+import com.gestion.stock.dto.request.CommandeUpdateRequestDTO;
+import com.gestion.stock.dto.request.DetailsCommandeUpdateRequestDTO;
 import com.gestion.stock.dto.response.CommandeResponseDTO;
 import com.gestion.stock.entity.Commande;
 import com.gestion.stock.mapper.CommandeMapper;
@@ -34,5 +36,28 @@ public class CommandeController {
     public ResponseEntity<List<CommandeResponseDTO>> getAllCommandes(){
         return ResponseEntity.ok(commandeService.allCommandes());
     }
+    @GetMapping("/{id}")
+    public ResponseEntity<CommandeResponseDTO> getCommandeByID(@PathVariable Long id){
+        return  ResponseEntity.ok(commandeService.commandeByID(id));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<CommandeResponseDTO> updateCommandeById(@PathVariable Long id, @Valid @RequestBody CommandeUpdateRequestDTO commandeRequestDTO){
+
+
+        return ResponseEntity.ok(commandeService.updateCommande(id,commandeRequestDTO));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteCommandeById(@PathVariable Long id){
+        return ResponseEntity.ok(commandeService.deleteCommande(id));
+    }
+
+    @PutMapping("/{id}/annulee")
+    public ResponseEntity<CommandeResponseDTO> changeCommandeStatusAnnulee(@PathVariable Long id){
+        return ResponseEntity.ok(commandeService.changeStatusToAnnulee(id));
+    }
+
+
 
 }

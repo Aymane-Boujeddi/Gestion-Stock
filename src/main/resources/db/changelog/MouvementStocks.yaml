@@ -1,0 +1,32 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-table-mouvement-stock
+      author: Aymane
+      changes:
+        - createTable:
+            tableName: mouvement_stocks
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: quantite
+                  type: int
+              - column:
+                  name: type_mouvement
+                  type : varchar(50)
+              - column:
+                  name: date_mouvement
+                  type: timestamp
+              - column:
+                  name: stock_id
+                  type: BIGINT
+        - addForeignKeyConstraint:
+            baseTableName: mouvement_stocks
+            baseColumnNames: stock_id
+            referencedTableName: stocks
+            referencedColumnNames: id
+            constraintName: fk_mouvement_stock
