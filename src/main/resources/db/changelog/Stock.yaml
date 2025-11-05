@@ -1,0 +1,47 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-table-stock
+      author: Aymane
+      changes:
+        - createTable:
+            tableName: stocks
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: numero_lot
+                  type: VARCHAR(100)
+              - column:
+                  name: date_entre
+                  type: timestamp
+              - column:
+                  name: quantite_actuel
+                  type: INT
+              - column:
+                  name: prix_achat
+                  type: DOUBLE
+              - column:
+                  name: produit_id
+                  type: int
+              - column:
+                  name: commande_id
+                  type: int
+        - addForeignKeyConstraint:
+            baseTableName: stocks
+            baseColumnNames: commande_id
+            referencedTableName: commandes
+            referencedColumnNames: id
+            constraintName: fk_commande_stock
+        - addForeignKeyConstraint:
+            baseTableName: stocks
+            baseColumnNames: produit_id
+            referencedTableName: produits
+            referencedColumnNames: id
+            constraintName: fk_produit_stock
+
+
+
