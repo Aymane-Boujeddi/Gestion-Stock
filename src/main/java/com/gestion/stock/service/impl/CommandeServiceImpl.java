@@ -1,6 +1,8 @@
 package com.gestion.stock.service.impl;
 
 import com.gestion.stock.dto.request.CommandeRequestDTO;
+import com.gestion.stock.dto.request.CommandeUpdateRequestDTO;
+import com.gestion.stock.dto.request.DetailsCommandeUpdateRequestDTO;
 import com.gestion.stock.dto.response.CommandeResponseDTO;
 import com.gestion.stock.dto.response.DetailsCommandeResponseDTO;
 import com.gestion.stock.entity.Commande;
@@ -21,6 +23,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -31,6 +35,8 @@ public class CommandeServiceImpl implements CommandeService {
 
 
     private final CommandeMapper mapper;
+
+    private final DetailsCommandeMapper detailsMapper;
 
     @Override
     public CommandeResponseDTO saveCommande(CommandeRequestDTO commandeRequestDTO) {
@@ -56,7 +62,45 @@ public class CommandeServiceImpl implements CommandeService {
         return mapper.toResponseDto(searchedCommande);
     }
 
+    @Override
+    public CommandeResponseDTO updateCommande(Long id, CommandeUpdateRequestDTO commandeUpdateRequestDTO) {
+        Commande existingCommande = getByID(id);
+        mapper.updateEntity(commandeUpdateRequestDTO,existingCommande);
 
+        if(commandeUpdateRequestDTO.getDetailsCommande() != null && !commandeUpdateRequestDTO.getDetailsCommande().isEmpty()){
+            updateDetails(existingCommande,commandeUpdateRequestDTO.getDetailsCommande());
+        }
+
+        totalRecalcule(existingCommande);
+
+        return mapper.toResponseDto(commandeRepository.save(existingCommande));
+    }
+
+
+    private Commande getByID(Long id){
+        return commandeRepository.findById(id).get();
+    }
+
+    private void updateDetails(Commande commande, List<DetailsCommandeUpdateRequestDTO> updateList ){
+        Map<Long,DetailsCommande> existingCommandeDetails = commande.getDetailsCommandes().stream().collect(Collectors.toMap(DetailsCommande::getId,detailsCommande -> detailsCommande));
+
+        updateList.forEach(detailsDto -> {
+            DetailsCommande detailsCommande = existingCommandeDetails.get(detailsDto.getId());
+            if(detailsCommande == null){
+                throw new EntityNotFoundException("Detail not found id :" + detailsDto.getId());
+            }
+
+            detailsMapper.updateEntity(detailsDto,detailsCommande);
+            detailsCommande.setCommande(commande);
+        } );
+    }
+
+    private void totalRecalcule(Commande commande){
+        if(commande.getDetailsCommandes() != null && !commande.getDetailsCommandes().isEmpty()){
+            double total = commande.getDetailsCommandes().stream().mapToDouble(details ->details.getPrix() * details.getQuantite()).sum();
+            commande.setMontantTotale(total);
+        }
+    }
 
 
 }
