@@ -1,6 +1,7 @@
 package com.gestion.stock.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.gestion.stock.enums.StatutCommande;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -38,6 +39,7 @@ public class Commande {
     private Fournisseur fournisseur;
 
     @OneToMany(mappedBy = "commande", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<DetailsCommande> detailsCommandes;
 
 
