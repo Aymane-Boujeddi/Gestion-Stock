@@ -1,0 +1,38 @@
+package com.gestion.stock.controller;
+
+
+import com.gestion.stock.dto.request.CommandeRequestDTO;
+import com.gestion.stock.dto.response.CommandeResponseDTO;
+import com.gestion.stock.entity.Commande;
+import com.gestion.stock.mapper.CommandeMapper;
+import com.gestion.stock.service.CommandeService;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/commandes")
+@RequiredArgsConstructor
+public class CommandeController {
+
+    private final CommandeService commandeService;
+
+    private final CommandeMapper mapper;
+
+
+
+
+    @PostMapping
+    public ResponseEntity<CommandeResponseDTO> createCommande(@Valid @RequestBody CommandeRequestDTO commandeRequestDTO){
+       return ResponseEntity.ok(commandeService.saveCommande(commandeRequestDTO));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<CommandeResponseDTO>> getAllCommandes(){
+        return ResponseEntity.ok(commandeService.allCommandes());
+    }
+
+}

@@ -15,4 +15,5 @@ public interface FournisseurService {
     public boolean telephoneExists(String telephone);
     public boolean iceExists(String ICE);
     public Fournisseur updateFournisseur(Fournisseur fournisseur,Long id);
+    public void deleteFournisseur(Long id);
 }

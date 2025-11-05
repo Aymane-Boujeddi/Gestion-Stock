@@ -2,7 +2,6 @@ package com.gestion.stock.mapper;
 
 
 import com.gestion.stock.dto.request.FournisseurCreateDTO;
-import com.gestion.stock.dto.request.FournisseurUpdateDTO;
 import com.gestion.stock.dto.response.FournisseurResponseDTO;
 import com.gestion.stock.entity.Fournisseur;
 import org.mapstruct.Mapper;
@@ -16,6 +15,5 @@ public interface FournisseurMapper {
 
     FournisseurResponseDTO toResponseDTO(Fournisseur fournisseur);
 
-    Fournisseur toEntity(FournisseurUpdateDTO dto);
 
 }

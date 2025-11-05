@@ -61,10 +61,11 @@ public class FournisseurServiceImpl implements FournisseurService {
         return fournisseurRepository.save(fournisseur);
     }
 
-
-
-
-
+    @Override
+    public void deleteFournisseur(Long id) {
+        Fournisseur fournisseur = getFournisseurById(id);
+        fournisseurRepository.delete(fournisseur);
+    }
 
 
 }

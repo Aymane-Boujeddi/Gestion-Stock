@@ -2,7 +2,6 @@ package com.gestion.stock.controller;
 
 
 import com.gestion.stock.dto.request.FournisseurCreateDTO;
-import com.gestion.stock.dto.request.FournisseurUpdateDTO;
 import com.gestion.stock.dto.response.FournisseurResponseDTO;
 import com.gestion.stock.entity.Fournisseur;
 import com.gestion.stock.exception.DuplicateResourceException;
@@ -10,7 +9,6 @@ import com.gestion.stock.mapper.FournisseurMapper;
 import com.gestion.stock.service.FournisseurService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -75,6 +73,15 @@ public class FournisseurController {
         return ResponseEntity.ok(mapper.toResponseDTO(updatedFournisseur));
 
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteFournisseur(@PathVariable Long id){
+        fournisseurService.deleteFournisseur(id);
+        return ResponseEntity.ok("Fournisseur with the id " + id + " is deleted successfully");
+    }
+
+
+
 
 
 

@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
 
+import java.util.List;
+
 
 @Entity
 @Table(name="produits")
@@ -38,6 +40,9 @@ public class Produit {
 
     @Column(name="unite_mesure" , nullable = false)
     private String UniteMesure;
+
+    @OneToMany(mappedBy = "produit",cascade = CascadeType.ALL)
+    private List<DetailsCommande> detailsCommandes;
 
     public Produit() {
     }

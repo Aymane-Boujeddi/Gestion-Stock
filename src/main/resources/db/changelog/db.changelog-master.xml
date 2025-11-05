@@ -7,4 +7,6 @@
 
     <include file="db/changelog/Fournisseurs.xml" />
     <include file="db/changelog/Produit.xml" />
+    <include file="db/changelog/Commande.yaml"/>
+    <include file="db/changelog/DetailsCommande.yaml"/>
 </databaseChangeLog>
