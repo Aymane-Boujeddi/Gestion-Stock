@@ -4,17 +4,12 @@ import com.gestion.stock.dto.request.CommandeRequestDTO;
 import com.gestion.stock.dto.request.CommandeUpdateRequestDTO;
 import com.gestion.stock.dto.request.DetailsCommandeUpdateRequestDTO;
 import com.gestion.stock.dto.response.CommandeResponseDTO;
-import com.gestion.stock.dto.response.DetailsCommandeResponseDTO;
 import com.gestion.stock.entity.Commande;
 import com.gestion.stock.entity.DetailsCommande;
-import com.gestion.stock.entity.Fournisseur;
-import com.gestion.stock.entity.Produit;
 import com.gestion.stock.enums.StatutCommande;
 import com.gestion.stock.mapper.CommandeMapper;
 import com.gestion.stock.mapper.DetailsCommandeMapper;
 import com.gestion.stock.repository.CommandeRepository;
-import com.gestion.stock.repository.FournisseurRepository;
-import com.gestion.stock.repository.ProduitRepository;
 import com.gestion.stock.service.CommandeService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -83,9 +78,17 @@ public class CommandeServiceImpl implements CommandeService {
         return "Commande deleted successfully";
     }
 
+    @Override
+    public CommandeResponseDTO changeStatusToAnnulee(Long id) {
+        Commande commande = getByID(id);
+        commande.setStatutCommande(StatutCommande.ANNULEE);
+        return mapper.toResponseDto(commandeRepository.save(commande));
+    }
+
+
 
     private Commande getByID(Long id){
-        return commandeRepository.findById(id).get();
+        return commandeRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Commande not found id : " + id));
     }
 
     private void updateDetails(Commande commande, List<DetailsCommandeUpdateRequestDTO> updateList ){
@@ -108,6 +111,8 @@ public class CommandeServiceImpl implements CommandeService {
             commande.setMontantTotale(total);
         }
     }
+
+
 
 
 }

@@ -15,4 +15,5 @@ public interface CommandeService {
     public CommandeResponseDTO commandeByID(Long id);
     public CommandeResponseDTO updateCommande(Long id, CommandeUpdateRequestDTO commandeUpdateRequestDTO);
     public String deleteCommande(Long id);
+    public CommandeResponseDTO changeStatusToAnnulee(Long id);
 }

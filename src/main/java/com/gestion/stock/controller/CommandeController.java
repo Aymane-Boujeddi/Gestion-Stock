@@ -53,6 +53,11 @@ public class CommandeController {
         return ResponseEntity.ok(commandeService.deleteCommande(id));
     }
 
+    @PutMapping("/{id}/annulee")
+    public ResponseEntity<CommandeResponseDTO> changeCommandeStatusAnnulee(@PathVariable Long id){
+        return ResponseEntity.ok(commandeService.changeStatusToAnnulee(id));
+    }
+
 
 
 }

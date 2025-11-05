@@ -1,6 +1,7 @@
 package com.gestion.stock.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.gestion.stock.enums.StatutCommande;
 import jakarta.persistence.*;
@@ -41,6 +42,10 @@ public class Commande {
     @OneToMany(mappedBy = "commande", cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<DetailsCommande> detailsCommandes;
+
+    @OneToMany(mappedBy = "commande",cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Stock> stocks;
 
 
 
