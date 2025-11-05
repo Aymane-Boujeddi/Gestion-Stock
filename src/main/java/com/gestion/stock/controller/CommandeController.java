@@ -48,6 +48,11 @@ public class CommandeController {
         return ResponseEntity.ok(commandeService.updateCommande(id,commandeRequestDTO));
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteCommandeById(@PathVariable Long id){
+        return ResponseEntity.ok(commandeService.deleteCommande(id));
+    }
+
 
 
 }

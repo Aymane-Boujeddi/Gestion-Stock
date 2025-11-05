@@ -76,6 +76,13 @@ public class CommandeServiceImpl implements CommandeService {
         return mapper.toResponseDto(commandeRepository.save(existingCommande));
     }
 
+    @Override
+    public String deleteCommande(Long id) {
+        Commande deletingCommande = getByID(id);
+        commandeRepository.delete(deletingCommande);
+        return "Commande deleted successfully";
+    }
+
 
     private Commande getByID(Long id){
         return commandeRepository.findById(id).get();
