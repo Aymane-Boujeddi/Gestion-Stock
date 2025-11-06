@@ -10,4 +10,5 @@
     <include file="db/changelog/Commande.yaml"/>
     <include file="db/changelog/DetailsCommande.yaml"/>
     <include file="db/changelog/Stock.yaml"/>
+    <include file="db/changelog/MouvementStocks.yaml"/>
 </databaseChangeLog>
