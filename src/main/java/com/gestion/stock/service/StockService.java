@@ -9,4 +9,5 @@ import java.util.List;
 public interface StockService {
 
     public List<StockResponseDTO> createStockLotsAndMouvement(List<DetailsCommande> detailsCommandeList);
+    public List<StockResponseDTO> allStock();
 }

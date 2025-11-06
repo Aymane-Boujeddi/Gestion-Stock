@@ -50,4 +50,10 @@ public class StockServiceImpl implements StockService {
 
 
     }
+
+    @Override
+    public List<StockResponseDTO> allStock() {
+        List<Stock> stockList = stockRepository.findAll();
+        return stockList.stream().map(stockMapper::toResponseDto).toList();
+    }
 }
