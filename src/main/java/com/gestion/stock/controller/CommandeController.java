@@ -65,7 +65,10 @@ public class CommandeController {
         return ResponseEntity.ok(commandeService.changeStatusToLivree(id));
     }
 
-
+    @GetMapping("/{id}/fournisseur")
+    public ResponseEntity<List<CommandeResponseDTO>> commandeFournisseurById(@PathVariable Long id){
+        return ResponseEntity.ok(commandeService.commandesFournisseurById(id));
+    }
 
 
 

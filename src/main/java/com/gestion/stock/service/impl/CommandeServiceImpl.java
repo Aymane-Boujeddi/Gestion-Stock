@@ -11,6 +11,7 @@ import com.gestion.stock.enums.StatutCommande;
 import com.gestion.stock.mapper.CommandeMapper;
 import com.gestion.stock.mapper.DetailsCommandeMapper;
 import com.gestion.stock.repository.CommandeRepository;
+import com.gestion.stock.repository.FournisseurRepository;
 import com.gestion.stock.service.CommandeService;
 import com.gestion.stock.service.StockService;
 import jakarta.persistence.EntityNotFoundException;
@@ -31,6 +32,8 @@ import java.util.stream.Collectors;
 public class CommandeServiceImpl implements CommandeService {
 
     private final CommandeRepository commandeRepository;
+
+    private final FournisseurRepository fournisseurRepository;
 
     private final StockService stockService;
 
@@ -101,6 +104,14 @@ public class CommandeServiceImpl implements CommandeService {
         responseDtoMap.put("Commande updated",mapper.toResponseDto(savedCommande));
 
         return responseDtoMap;
+    }
+
+    @Override
+    public List<CommandeResponseDTO> commandesFournisseurById(Long id) {
+        fournisseurRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Fournisseur not found id : " + id));
+        List<Commande> commandeList = commandeRepository.findAllByFournisseurId(id);
+
+        return commandeList.stream().map(mapper::toResponseDto).toList();
     }
 
 

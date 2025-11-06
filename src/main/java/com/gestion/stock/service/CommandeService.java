@@ -18,4 +18,5 @@ public interface CommandeService {
     public String deleteCommande(Long id);
     public CommandeResponseDTO changeStatusToAnnulee(Long id);
     public Map<String , Object> changeStatusToLivree(Long id);
+    public List<CommandeResponseDTO> commandesFournisseurById(Long id);
 }
