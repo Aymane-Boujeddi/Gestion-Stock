@@ -18,7 +18,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -53,7 +56,27 @@ public class StockServiceImpl implements StockService {
 
     @Override
     public List<StockResponseDTO> allStock() {
-        List<Stock> stockList = stockRepository.findAll();
-        return stockList.stream().map(stockMapper::toResponseDto).toList();
+
+        return findAllStock().stream().map(stockMapper::toResponseDto).toList();
     }
+
+    @Override
+    public Map<String, List<StockResponseDTO>> stocksForProductSortedFifo(Long id) {
+       String productName = produitRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Produit not found id : " + id)).getNom();
+
+       List<StockResponseDTO> productStock = findAllStock().stream()
+               .filter(stock -> stock.getProduit().getId().equals(id))
+               .sorted(Comparator.comparing(Stock::getDateEntre))
+               .map(stockMapper::toResponseDto).toList();
+
+       Map<String , List<StockResponseDTO>> productWithStockList = new HashMap<>();
+       productWithStockList.put(productName,productStock);
+
+        return productWithStockList;
+    }
+
+    private List<Stock> findAllStock(){
+        return stockRepository.findAll();
+    }
+
 }

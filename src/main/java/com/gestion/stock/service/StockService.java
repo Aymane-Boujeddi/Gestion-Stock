@@ -5,9 +5,11 @@ import com.gestion.stock.entity.Commande;
 import com.gestion.stock.entity.DetailsCommande;
 
 import java.util.List;
+import java.util.Map;
 
 public interface StockService {
 
     public List<StockResponseDTO> createStockLotsAndMouvement(List<DetailsCommande> detailsCommandeList);
     public List<StockResponseDTO> allStock();
+    public Map<String , List<StockResponseDTO>> stocksForProductSortedFifo(Long id);
 }
