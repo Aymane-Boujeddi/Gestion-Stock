@@ -8,62 +8,43 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: BIGINT AUTO_INCREMENT
+                  type: BIGINT
+                  autoIncrement: true
                   constraints:
                     primaryKey: true
                     nullable: false
-
               - column:
-                  name: numero_bon
-                  type: VARCHAR(100)
+                  name: numero
+                  type: VARCHAR(255)
                   constraints:
                     nullable: false
                     unique: true
-
               - column:
                   name: date_sortie
-                  type: DATETIME
+                  type: TIMESTAMP
                   constraints:
                     nullable: false
-
               - column:
                   name: atelier
-                  type: VARCHAR(100)
+                  type: VARCHAR(255)
                   constraints:
                     nullable: false
-
               - column:
                   name: motif
                   type: VARCHAR(255)
                   constraints:
                     nullable: false
-
               - column:
                   name: statut
-                  type: VARCHAR(20)
+                  type: VARCHAR(50)
                   constraints:
                     nullable: false
-
+              - column:
+                  name: motif_details
+                  type: VARCHAR(255)
+              - column:
+                  name: created_by
+                  type: VARCHAR(255)
               - column:
                   name: created_at
-                  type: DATETIME
-                  defaultValueComputed: CURRENT_TIMESTAMP
-
-              - column:
-                  name: updated_at
-                  type: DATETIME
-                  defaultValueComputed: CURRENT_TIMESTAMP
-
-        - createIndex:
-            tableName: bons_sortie
-            indexName: idx_bons_sortie_numero
-            columns:
-              - column:
-                  name: numero_bon
-
-        - createIndex:
-            tableName: bons_sortie
-            indexName: idx_bons_sortie_atelier
-            columns:
-              - column:
-                  name: atelier
+                  type: TIMESTAMP

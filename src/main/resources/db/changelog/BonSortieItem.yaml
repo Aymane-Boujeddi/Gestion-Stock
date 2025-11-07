@@ -1,48 +1,45 @@
 databaseChangeLog:
   - changeSet:
-      id: create-table-bons-sortie-details
+      id: create-table-bon-sortie-items
       author: hajar
       changes:
         - createTable:
-            tableName: bons_sortie_details
+            tableName: bon_sortie_items
             columns:
               - column:
                   name: id
-                  type: BIGINT AUTO_INCREMENT
+                  type: BIGINT
+                  autoIncrement: true
                   constraints:
                     primaryKey: true
                     nullable: false
-
+              - column:
+                  name: bon_sortie_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: produit_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
               - column:
                   name: quantite
                   type: INT
                   constraints:
                     nullable: false
 
-              - column:
-                  name: produit_id
-                  type: BIGINT
-                  constraints:
-                    nullable: false
-
-              - column:
-                  name: bon_sortie_id
-                  type: BIGINT
-                  constraints:
-                    nullable: false
-
         - addForeignKeyConstraint:
-            constraintName: fk_bon_sortie_details_produit
-            baseTableName: bons_sortie_details
-            baseColumnNames: produit_id
-            referencedTableName: produits
-            referencedColumnNames: id
-            onDelete: CASCADE
-
-        - addForeignKeyConstraint:
-            constraintName: fk_bon_sortie_details_bon_sortie
-            baseTableName: bons_sortie_details
+            baseTableName: bon_sortie_items
             baseColumnNames: bon_sortie_id
             referencedTableName: bons_sortie
             referencedColumnNames: id
             onDelete: CASCADE
+            constraintName: fk_bon_sortie_items_bons_sortie
+
+        - addForeignKeyConstraint:
+            baseTableName: bon_sortie_items
+            baseColumnNames: produit_id
+            referencedTableName: produits
+            referencedColumnNames: id
+            constraintName: fk_bon_sortie_items_produits

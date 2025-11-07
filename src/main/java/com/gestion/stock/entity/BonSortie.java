@@ -51,4 +51,5 @@ public class BonSortie {
     public void onCreate() {
         this.createdAt = LocalDateTime.now();
     }
+
 }
