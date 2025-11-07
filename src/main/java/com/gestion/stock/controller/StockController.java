@@ -50,5 +50,9 @@ public class StockController {
         return ResponseEntity.ok(stockService.produitUnderThreshold());
     }
 
+    @GetMapping("/valorisation")
+    public ResponseEntity<String> valorisationStock(){
+        return ResponseEntity.ok(stockService.valorisationStock());
+    }
 
 }
