@@ -81,11 +81,21 @@ public class StockServiceImpl implements StockService {
     @Override
     public List<MouvementStockResponseDTO> historiqueMouvement() {
 
-        return mouvementStockRepository.findAll().stream().map(mouvementStockMapper::toResponseDTO).toList();
+        return findAllMouvement().stream().map(mouvementStockMapper::toResponseDTO).toList();
+    }
+
+    @Override
+    public List<MouvementStockResponseDTO> historiqueMouvementStockProduit(Long id) {
+        String productName = produitRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Produit not found id : " + id)).getNom();
+
+        return findAllMouvement().stream()
+                .filter(mouvement -> mouvement.getStock().getProduit().getId().equals(id))
+                .map(mouvementStockMapper::toResponseDTO)
+                .toList();
     }
 
     private List<Stock> findAllStock(){
         return stockRepository.findAll();
     }
-
+    private List<MouvementStock> findAllMouvement(){return mouvementStockRepository.findAll();}
 }

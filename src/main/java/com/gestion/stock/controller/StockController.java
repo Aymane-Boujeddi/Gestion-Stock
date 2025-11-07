@@ -39,6 +39,10 @@ public class StockController {
         return ResponseEntity.ok(stockService.historiqueMouvement());
     }
 
+    @GetMapping("/mouvements/produit/{id}")
+    public ResponseEntity<List<MouvementStockResponseDTO>> historiqueMouvementProduit(@PathVariable Long id){
+        return ResponseEntity.ok(stockService.historiqueMouvementStockProduit(id));
+    }
 
 
 }

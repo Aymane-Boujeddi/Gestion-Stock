@@ -14,4 +14,5 @@ public interface StockService {
     public List<StockResponseDTO> allStock();
     public Map<String , List<StockResponseDTO>> stocksForProductSortedFifo(Long id);
     public List<MouvementStockResponseDTO> historiqueMouvement();
+    public List<MouvementStockResponseDTO> historiqueMouvementStockProduit(Long id);
 }
