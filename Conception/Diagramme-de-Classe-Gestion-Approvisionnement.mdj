@@ -997,7 +997,7 @@
 											"top": 447,
 											"width": 383,
 											"height": 13,
-											"text": "Lot"
+											"text": "Stock"
 										},
 										{
 											"_type": "LabelView",
@@ -7353,7 +7353,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "Lot",
+					"name": "Stock",
 					"ownedElements": [
 						{
 							"_type": "UMLAssociation",
