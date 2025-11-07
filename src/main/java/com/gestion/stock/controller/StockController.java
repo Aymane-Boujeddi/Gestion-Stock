@@ -1,7 +1,9 @@
 package com.gestion.stock.controller;
 
 
+import com.gestion.stock.dto.response.MouvementStockResponseDTO;
 import com.gestion.stock.dto.response.StockResponseDTO;
+import com.gestion.stock.entity.MouvementStock;
 import com.gestion.stock.entity.Stock;
 import com.gestion.stock.service.StockService;
 import lombok.RequiredArgsConstructor;
@@ -31,5 +33,12 @@ public class StockController {
     public ResponseEntity<Map<String , List<StockResponseDTO>>> getStocksByProductSortedFifo(@PathVariable Long id){
         return ResponseEntity.ok(stockService.stocksForProductSortedFifo(id));
     }
+
+    @GetMapping("/mouvements")
+    public ResponseEntity<List<MouvementStockResponseDTO>> historiqueMouvementStock(){
+        return ResponseEntity.ok(stockService.historiqueMouvement());
+    }
+
+
 
 }

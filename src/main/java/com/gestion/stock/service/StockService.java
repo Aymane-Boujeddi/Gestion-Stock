@@ -1,5 +1,6 @@
 package com.gestion.stock.service;
 
+import com.gestion.stock.dto.response.MouvementStockResponseDTO;
 import com.gestion.stock.dto.response.StockResponseDTO;
 import com.gestion.stock.entity.Commande;
 import com.gestion.stock.entity.DetailsCommande;
@@ -12,4 +13,5 @@ public interface StockService {
     public List<StockResponseDTO> createStockLotsAndMouvement(List<DetailsCommande> detailsCommandeList);
     public List<StockResponseDTO> allStock();
     public Map<String , List<StockResponseDTO>> stocksForProductSortedFifo(Long id);
+    public List<MouvementStockResponseDTO> historiqueMouvement();
 }

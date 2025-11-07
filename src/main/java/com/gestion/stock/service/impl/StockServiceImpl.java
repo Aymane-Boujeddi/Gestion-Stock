@@ -1,11 +1,13 @@
 package com.gestion.stock.service.impl;
 
+import com.gestion.stock.dto.response.MouvementStockResponseDTO;
 import com.gestion.stock.dto.response.StockResponseDTO;
 import com.gestion.stock.entity.DetailsCommande;
 import com.gestion.stock.entity.MouvementStock;
 import com.gestion.stock.entity.Produit;
 import com.gestion.stock.entity.Stock;
 import com.gestion.stock.mapper.DetailsCommandetoStockMapper;
+import com.gestion.stock.mapper.MouvementStockMapper;
 import com.gestion.stock.mapper.StockMapper;
 import com.gestion.stock.mapper.StockToMouvementMapper;
 import com.gestion.stock.repository.MouvementStockRepository;
@@ -33,6 +35,7 @@ public class StockServiceImpl implements StockService {
     private final ProduitRepository produitRepository;
     private final DetailsCommandetoStockMapper detailsToStockMapper;
     private final StockToMouvementMapper stockToMouvementMapper;
+    private final MouvementStockMapper mouvementStockMapper;
     private final StockMapper stockMapper;
 
     @Override
@@ -73,6 +76,12 @@ public class StockServiceImpl implements StockService {
        productWithStockList.put(productName,productStock);
 
         return productWithStockList;
+    }
+
+    @Override
+    public List<MouvementStockResponseDTO> historiqueMouvement() {
+
+        return mouvementStockRepository.findAll().stream().map(mouvementStockMapper::toResponseDTO).toList();
     }
 
     private List<Stock> findAllStock(){
