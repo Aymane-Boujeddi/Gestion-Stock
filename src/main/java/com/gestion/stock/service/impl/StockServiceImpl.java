@@ -1,15 +1,13 @@
 package com.gestion.stock.service.impl;
 
 import com.gestion.stock.dto.response.MouvementStockResponseDTO;
+import com.gestion.stock.dto.response.ProduitResponseDTO;
 import com.gestion.stock.dto.response.StockResponseDTO;
 import com.gestion.stock.entity.DetailsCommande;
 import com.gestion.stock.entity.MouvementStock;
 import com.gestion.stock.entity.Produit;
 import com.gestion.stock.entity.Stock;
-import com.gestion.stock.mapper.DetailsCommandetoStockMapper;
-import com.gestion.stock.mapper.MouvementStockMapper;
-import com.gestion.stock.mapper.StockMapper;
-import com.gestion.stock.mapper.StockToMouvementMapper;
+import com.gestion.stock.mapper.*;
 import com.gestion.stock.repository.MouvementStockRepository;
 import com.gestion.stock.repository.ProduitRepository;
 import com.gestion.stock.repository.StockRepository;
@@ -36,6 +34,7 @@ public class StockServiceImpl implements StockService {
     private final DetailsCommandetoStockMapper detailsToStockMapper;
     private final StockToMouvementMapper stockToMouvementMapper;
     private final MouvementStockMapper mouvementStockMapper;
+    private final ProduitMapper produitMapper;
     private final StockMapper stockMapper;
 
     @Override
@@ -92,6 +91,14 @@ public class StockServiceImpl implements StockService {
         return findAllMouvement().stream()
                 .filter(mouvement -> mouvement.getStock().getProduit().getId().equals(id))
                 .map(mouvementStockMapper::toResponseDTO)
+                .toList();
+    }
+
+    @Override
+    public List<ProduitResponseDTO> produitUnderThreshold() {
+        return produitRepository.findAll().stream()
+                .filter(produit -> produit.getStockActuel() < produit.getPointCommande())
+                .map(produitMapper::toResponseDto)
                 .toList();
     }
 

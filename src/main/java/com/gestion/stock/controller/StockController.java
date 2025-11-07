@@ -2,6 +2,7 @@ package com.gestion.stock.controller;
 
 
 import com.gestion.stock.dto.response.MouvementStockResponseDTO;
+import com.gestion.stock.dto.response.ProduitResponseDTO;
 import com.gestion.stock.dto.response.StockResponseDTO;
 import com.gestion.stock.entity.MouvementStock;
 import com.gestion.stock.entity.Stock;
@@ -42,6 +43,11 @@ public class StockController {
     @GetMapping("/mouvements/produit/{id}")
     public ResponseEntity<List<MouvementStockResponseDTO>> historiqueMouvementProduit(@PathVariable Long id){
         return ResponseEntity.ok(stockService.historiqueMouvementStockProduit(id));
+    }
+
+    @GetMapping("/alertes")
+    public ResponseEntity<List<ProduitResponseDTO>> produitUnderThreshold(){
+        return ResponseEntity.ok(stockService.produitUnderThreshold());
     }
 
 
