@@ -96,6 +96,9 @@ public class CommandeServiceImpl implements CommandeService {
     @Override
     public Map<String ,Object> changeStatusToLivree(Long id) {
         Commande commande = getByID(id);
+        if(commande.getStatutCommande().equals(StatutCommande.LIVREE)){
+            throw new IllegalArgumentException("This commande is already delivered");
+        }
         commande.setStatutCommande(StatutCommande.LIVREE);
         List<StockResponseDTO> stockResponseDTOList =  stockService.createStockLotsAndMouvement(commande.getDetailsCommandes());
         Commande savedCommande = commandeRepository.save(commande);

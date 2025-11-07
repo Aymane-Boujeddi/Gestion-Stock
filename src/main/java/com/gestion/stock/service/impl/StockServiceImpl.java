@@ -42,12 +42,13 @@ public class StockServiceImpl implements StockService {
     public List<StockResponseDTO> createStockLotsAndMouvement(List<DetailsCommande> detailsCommandeList) {
        return detailsCommandeList.stream().map(detailsCommande -> {
 
+            Produit produit = produitRepository.findById(detailsCommande.getProduit().getId()).orElseThrow(() -> new EntityNotFoundException("Produit not found id : " + detailsCommande.getProduit().getId()));
+            produit.setStockActuel(produit.getStockActuel() + detailsCommande.getQuantite());
+            Produit updatedProduit =  produitRepository.save(produit);
            Stock newStock =  detailsToStockMapper.detailsToStock(detailsCommande);
            newStock.setDateEntre(LocalDateTime.now());
+           newStock.setProduit(updatedProduit);
             Stock  savedStock=stockRepository.save(newStock);
-            Produit updateProduct = produitRepository.findById(savedStock.getProduit().getId()).orElseThrow(() -> new EntityNotFoundException("Produit not found id : " + savedStock.getProduit().getId()));
-            updateProduct.setStockActuel(savedStock.getQuantiteActuel());
-            produitRepository.save(updateProduct);
             MouvementStock mouvementEntree = stockToMouvementMapper.toMouvementEntre(savedStock);
             mouvementStockRepository.save(mouvementEntree);
            return stockMapper.toResponseDto(savedStock);
