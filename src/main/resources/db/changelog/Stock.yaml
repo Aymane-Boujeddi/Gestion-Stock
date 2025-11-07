@@ -26,10 +26,10 @@ databaseChangeLog:
                   type: DOUBLE
               - column:
                   name: produit_id
-                  type: int
+                  type: BIGINT
               - column:
                   name: commande_id
-                  type: int
+                  type: BIGINT
         - addForeignKeyConstraint:
             baseTableName: stocks
             baseColumnNames: commande_id

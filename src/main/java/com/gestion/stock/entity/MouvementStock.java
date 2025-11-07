@@ -20,6 +20,7 @@ public class MouvementStock {
     private int quantite;
 
     @Column(name = "type_mouvement")
+    @Enumerated(EnumType.STRING)
     private TypeMouvement typeMouvement;
 
     @Column(name = "date_mouvement")
