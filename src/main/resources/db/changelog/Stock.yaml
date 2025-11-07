@@ -15,21 +15,33 @@ databaseChangeLog:
               - column:
                   name: numero_lot
                   type: VARCHAR(100)
+                  constraints:
+                    nullable: false
               - column:
                   name: date_entre
-                  type: timestamp
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
               - column:
                   name: quantite_actuel
                   type: INT
+                  constraints:
+                    nullable: false
               - column:
                   name: prix_achat
                   type: DOUBLE
+                  constraints:
+                    nullable: false
               - column:
                   name: produit_id
-                  type: int
+                  type: BIGINT
+                  constraints:
+                    nullable: false
               - column:
                   name: commande_id
-                  type: int
+                  type: BIGINT
+                  constraints:
+                    nullable: false
         - addForeignKeyConstraint:
             baseTableName: stocks
             baseColumnNames: commande_id
