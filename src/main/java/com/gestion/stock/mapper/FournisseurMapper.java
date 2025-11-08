@@ -6,13 +6,14 @@ import com.gestion.stock.dto.response.FournisseurResponseDTO;
 import com.gestion.stock.entity.Fournisseur;
 import org.mapstruct.Mapper;
 
-import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface FournisseurMapper {
 
+
     Fournisseur toEntity(FournisseurCreateDTO dto);
 
     FournisseurResponseDTO toResponseDTO(Fournisseur fournisseur);
+
 
 }
