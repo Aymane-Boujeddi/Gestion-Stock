@@ -2,6 +2,8 @@ package com.gestion.stock.mapper;
 
 
 import com.gestion.stock.dto.request.BonSortieItemRequestDTO;
+import com.gestion.stock.dto.response.BonSortieItemResponseDTO;
+import com.gestion.stock.dto.response.BonSortieResponseDTO;
 import com.gestion.stock.entity.BonSortieItem;
 import com.gestion.stock.entity.Produit;
 import com.gestion.stock.repository.ProduitRepository;
@@ -22,6 +24,9 @@ public abstract class BonSortieItemMapper {
    abstract BonSortieItem toEntity(BonSortieItemRequestDTO bonSortieItemRequestDTO);
 
 
+    @Mapping(target = "quantite",source = "quantite")
+    @Mapping(target = "produitNom",source = "produit.nom")
+    abstract BonSortieItemResponseDTO toResponse(BonSortieItem bonSortieItem);
     @Named("idToProduit")
     protected Produit idToProduit(Long produitId){
         return produitRepository.findById(produitId).orElseThrow(
