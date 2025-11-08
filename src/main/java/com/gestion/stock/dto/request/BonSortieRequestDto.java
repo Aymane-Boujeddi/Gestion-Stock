@@ -11,7 +11,7 @@ import java.util.List;
 @Builder
 public class BonSortieRequestDto {
 
-    private String numero;
+    private String numeroBon;
 
     @NotNull(message = "La date de sortie est obligatoire")
     private LocalDateTime dateSortie;
@@ -34,8 +34,7 @@ public class BonSortieRequestDto {
     )
     private String statut;
 
-    @NotBlank(message = "Le champ 'createdBy' est obligatoire")
-    private String createdBy;
+
 
     @NotEmpty(message = "La liste des produits ne peut pas être vide")
     private List<BonSortieItemRequestDTO> items;
