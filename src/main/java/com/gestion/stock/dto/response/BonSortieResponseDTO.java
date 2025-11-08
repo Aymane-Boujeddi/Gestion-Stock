@@ -1,8 +1,11 @@
 package com.gestion.stock.dto.response;
 
+import lombok.Data;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Data
 public class BonSortieResponseDTO {
 
 
@@ -14,11 +17,11 @@ public class BonSortieResponseDTO {
 
     private String motif;
 
+    private String motifDetails;
+
     private String statutBonSortie;
 
-    private List<BonSortieResponseDTO> items;
-
-    private String createdBy;
+    private List<BonSortieItemResponseDTO> items;
 
     private LocalDateTime createdAt;
 }
