@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface BonSortieService {
     public BonSortieResponseDTO createBonSortie(BonSortieRequestDto bonSortieRequestDto);
-    List<BonSortieResponseDTO> getAllBonsSortie();
+    public List<BonSortieResponseDTO> getAllBonsSortie();
+    public BonSortieResponseDTO getBonSortieById(Long id);
 
 }

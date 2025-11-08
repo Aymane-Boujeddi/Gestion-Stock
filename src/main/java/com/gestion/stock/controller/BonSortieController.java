@@ -26,5 +26,9 @@ public class BonSortieController {
     public ResponseEntity<List<BonSortieResponseDTO>> getAllBonsSortie() {
         return ResponseEntity.ok(bonSortieService.getAllBonsSortie());
     }
-
+    @GetMapping("/{id}")
+    public ResponseEntity<BonSortieResponseDTO> getBonSortieById(@PathVariable Long id) {
+       // BonSortieResponseDTO bonSortie = bonSortieService.getBonSortieById(id);
+        return ResponseEntity.ok(bonSortieService.getBonSortieById(id));
+    }
 }
