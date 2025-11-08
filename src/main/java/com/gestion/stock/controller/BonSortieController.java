@@ -1,5 +1,6 @@
 package com.gestion.stock.controller;
 import com.gestion.stock.dto.request.BonSortieRequestDto;
+import com.gestion.stock.dto.request.BonSortieUpdateRequestDTO;
 import com.gestion.stock.dto.response.BonSortieResponseDTO;
 import com.gestion.stock.dto.response.CommandeResponseDTO;
 import com.gestion.stock.service.BonSortieService;
@@ -28,7 +29,12 @@ public class BonSortieController {
     }
     @GetMapping("/{id}")
     public ResponseEntity<BonSortieResponseDTO> getBonSortieById(@PathVariable Long id) {
-       // BonSortieResponseDTO bonSortie = bonSortieService.getBonSortieById(id);
         return ResponseEntity.ok(bonSortieService.getBonSortieById(id));
     }
+    @PutMapping("/{id}")
+    public ResponseEntity<BonSortieResponseDTO> updateBonSortie(@PathVariable Long id, @Valid @RequestBody BonSortieUpdateRequestDTO bonSortieUpdateRequestDto) {
+
+        return ResponseEntity.ok(bonSortieService.updateBonSortie(id, bonSortieUpdateRequestDto));
+    }
+
 }
