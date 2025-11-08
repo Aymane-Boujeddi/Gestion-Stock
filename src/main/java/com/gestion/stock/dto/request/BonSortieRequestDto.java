@@ -11,10 +11,8 @@ import java.util.List;
 @Builder
 public class BonSortieRequestDto {
 
-    private String numero;
+    private String numeroBon;
 
-    @NotNull(message = "La date de sortie est obligatoire")
-    private LocalDateTime dateSortie;
 
     @NotBlank(message = "L'atelier destinataire est obligatoire")
     @Size(max = 100, message = "Le nom de l'atelier ne doit pas dépasser 100 caractères")
@@ -27,15 +25,8 @@ public class BonSortieRequestDto {
     @Size(max = 255, message = "Les détails du motif ne doivent pas dépasser 255 caractères")
     private String motifDetails;
 
-    @NotBlank(message = "Le statut est obligatoire")
-    @Pattern(
-            regexp = "BROUILLON|VALIDE|ANNULE",
-            message = "Le statut doit être parmi : BROUILLON, VALIDE, ANNULE"
-    )
-    private String statut;
 
-    @NotBlank(message = "Le champ 'createdBy' est obligatoire")
-    private String createdBy;
+
 
     @NotEmpty(message = "La liste des produits ne peut pas être vide")
     private List<BonSortieItemRequestDTO> items;

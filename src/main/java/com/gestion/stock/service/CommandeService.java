@@ -7,6 +7,7 @@ import com.gestion.stock.entity.Commande;
 import com.gestion.stock.entity.Fournisseur;
 
 import java.util.List;
+import java.util.Map;
 
 public interface CommandeService {
 
@@ -16,4 +17,6 @@ public interface CommandeService {
     public CommandeResponseDTO updateCommande(Long id, CommandeUpdateRequestDTO commandeUpdateRequestDTO);
     public String deleteCommande(Long id);
     public CommandeResponseDTO changeStatusToAnnulee(Long id);
+    public Map<String , Object> changeStatusToLivree(Long id);
+    public List<CommandeResponseDTO> commandesFournisseurById(Long id);
 }

@@ -7,6 +7,7 @@ import com.gestion.stock.dto.request.DetailsCommandeUpdateRequestDTO;
 import com.gestion.stock.dto.response.CommandeResponseDTO;
 import com.gestion.stock.entity.Commande;
 import com.gestion.stock.mapper.CommandeMapper;
+import com.gestion.stock.repository.CommandeRepository;
 import com.gestion.stock.service.CommandeService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/commandes")
@@ -57,6 +59,17 @@ public class CommandeController {
     public ResponseEntity<CommandeResponseDTO> changeCommandeStatusAnnulee(@PathVariable Long id){
         return ResponseEntity.ok(commandeService.changeStatusToAnnulee(id));
     }
+
+    @PutMapping("/{id}/livree")
+    public ResponseEntity<Map<String,Object>> changeCommandeStatusLivree(@PathVariable Long id){
+        return ResponseEntity.ok(commandeService.changeStatusToLivree(id));
+    }
+
+    @GetMapping("/{id}/fournisseur")
+    public ResponseEntity<List<CommandeResponseDTO>> commandeFournisseurById(@PathVariable Long id){
+        return ResponseEntity.ok(commandeService.commandesFournisseurById(id));
+    }
+
 
 
 

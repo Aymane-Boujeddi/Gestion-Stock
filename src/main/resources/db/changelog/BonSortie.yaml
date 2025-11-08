@@ -35,6 +35,12 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
+                  name: motif_details
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+
+              - column:
                   name: statut
                   type: VARCHAR(50)
                   constraints:
