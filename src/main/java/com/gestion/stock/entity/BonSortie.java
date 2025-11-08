@@ -1,5 +1,6 @@
 package com.gestion.stock.entity;
 
+import com.gestion.stock.enums.MotifType;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
@@ -20,7 +21,7 @@ public class BonSortie {
     private Long id;
 
     @Column(unique = true, nullable = false)
-    private String numero;
+    private String numeroBon;
 
     @Column(name = "date_sortie", nullable = false)
     private LocalDateTime dateSortie;
@@ -28,8 +29,9 @@ public class BonSortie {
     @Column(nullable = false)
     private String atelier;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private String motif; // texte libre : PRODUCTION, MAINTENANCE, etc.
+    private MotifType motif;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -39,16 +41,23 @@ public class BonSortie {
     private String motifDetails;
 
     @OneToMany(mappedBy = "bonSortie", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<BonSortieItem> items = new ArrayList<>();
-
-    @Column(name = "created_by")
-    private String createdBy;
+    private List<BonSortieItem> items;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
+
     @PrePersist
     public void onCreate() {
+
         this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    public void onUpdate(){
+        this.updatedAt = LocalDateTime.now();
     }
 }
