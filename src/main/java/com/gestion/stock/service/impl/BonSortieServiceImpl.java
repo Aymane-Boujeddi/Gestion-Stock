@@ -7,11 +7,13 @@ import com.gestion.stock.mapper.BonSortieItemMapper;
 import com.gestion.stock.mapper.BonSortieMapper;
 import com.gestion.stock.repository.BonSortieRepository;
 import com.gestion.stock.service.BonSortieService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Service
@@ -32,6 +34,9 @@ public class BonSortieServiceImpl implements BonSortieService {
 
         return mapper.toResponseDTO(bonSortieRepository.save(newBonSortie));
     }
-
+    @Override
+    public List<BonSortieResponseDTO> getAllBonsSortie() {
+        return bonSortieRepository.findAll().stream().map(mapper::toResponseDTO).toList();
+    }
 
 }

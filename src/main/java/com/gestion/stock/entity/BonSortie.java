@@ -60,5 +60,4 @@ public class BonSortie {
     public void onUpdate(){
         this.updatedAt = LocalDateTime.now();
     }
-
 }
