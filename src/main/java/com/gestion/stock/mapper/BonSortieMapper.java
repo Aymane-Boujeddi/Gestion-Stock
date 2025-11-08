@@ -14,7 +14,7 @@ import java.util.UUID;
 public interface BonSortieMapper {
 
 
-    @Mapping(target = "numeroBon",qualifiedByName = "createNumBon")
+    @Mapping(target = "numeroBon",expression = "java(createNumeroBonSortie())")
     @Mapping(target = "dateSortie",ignore = true)
     @Mapping(target = "motif",source = "motif")
     @Mapping(target = "motifDetails",source = "motifDetails")
@@ -26,10 +26,15 @@ public interface BonSortieMapper {
     @Mapping(target = "id", ignore = true)
     BonSortie toEntity(BonSortieRequestDto bonSortieRequestDto);
 
-
+    @Mapping(target = "motif",source = "motif")
+    @Mapping(target = "motifDetails",source = "motifDetails")
+    @Mapping(target = "atelierDestinataire",source = "atelier")
+    @Mapping(target = "items",source = "items")
+    @Mapping(target = "dateSortie",source = "dateSortie")
+    @Mapping(target = "statutBonSortie",source = "statut")
     BonSortieResponseDTO toResponseDTO(BonSortie bonSortie);
 
-    @Named("createNumBon")
+    @Named(value = "createNumBon")
     default String createNumeroBonSortie(){
         return "LOT-" +  UUID.randomUUID().toString().substring(0,8);
     }
