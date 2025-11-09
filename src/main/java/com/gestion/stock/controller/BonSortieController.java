@@ -36,5 +36,9 @@ public class BonSortieController {
 
         return ResponseEntity.ok(bonSortieService.updateBonSortie(id, bonSortieUpdateRequestDto));
     }
+    @PutMapping("/{id}/annuler")
+    public ResponseEntity<BonSortieResponseDTO> updateBonSortieToAnnuler(@PathVariable Long id){
+        return ResponseEntity.ok();
+    }
 
 }

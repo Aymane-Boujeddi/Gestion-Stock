@@ -80,5 +80,12 @@ public class BonSortieServiceImpl implements BonSortieService {
         return mapper.toResponseDTO(bonSortieRepository.save(existingBon));
     }
 
+    @Override
+    public BonSortieResponseDTO updateBonSortieToAnnuler(Long id) {
+        BonSortie updatingBonSortie = bonSortieRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("BonSortie not found id : "+ id));
+        updatingBonSortie.setStatut(StatutBonSortie.ANNULE);
+        return mapper.toResponseDTO(bonSortieRepository.save(updatingBonSortie));
+    }
+
 
 }

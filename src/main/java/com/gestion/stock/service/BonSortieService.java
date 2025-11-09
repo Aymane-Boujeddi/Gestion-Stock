@@ -12,5 +12,5 @@ public interface BonSortieService {
     public List<BonSortieResponseDTO> getAllBonsSortie();
     public BonSortieResponseDTO getBonSortieById(Long id);
     public BonSortieResponseDTO updateBonSortie(Long id, BonSortieUpdateRequestDTO bonSortieUpdateRequestDto);
-
+    public BonSortieResponseDTO updateBonSortieToAnnuler(Long id);
 }
