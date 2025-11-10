@@ -7,15 +7,23 @@ import com.gestion.stock.entity.*;
 import com.gestion.stock.enums.*;
 import com.gestion.stock.mapper.BonSortieItemMapper;
 import com.gestion.stock.mapper.BonSortieMapper;
+import com.gestion.stock.mapper.StockToMouvementMapper;
 import com.gestion.stock.repository.BonSortieRepository;
+import com.gestion.stock.repository.MouvementStockRepository;
+import com.gestion.stock.repository.ProduitRepository;
+import com.gestion.stock.repository.StockRepository;
 import com.gestion.stock.service.BonSortieService;
+import com.gestion.stock.service.StockService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 
 
 @Service
@@ -24,7 +32,11 @@ import java.util.List;
 public class BonSortieServiceImpl implements BonSortieService {
 
     private final BonSortieRepository bonSortieRepository;
+    private final ProduitRepository produitRepository;
+    private final MouvementStockRepository mouvementStockRepository;
+    private final StockRepository stockRepository;
     private final BonSortieMapper mapper;
+    private final StockToMouvementMapper stockToMouvementMapper;
     private final BonSortieItemMapper bonSortieItemMapper;
 
 
@@ -85,6 +97,92 @@ public class BonSortieServiceImpl implements BonSortieService {
         BonSortie updatingBonSortie = bonSortieRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("BonSortie not found id : "+ id));
         updatingBonSortie.setStatut(StatutBonSortie.ANNULE);
         return mapper.toResponseDTO(bonSortieRepository.save(updatingBonSortie));
+    }
+
+    @Override
+    public Map<String, Object> updateBonSortieToValider(Long id) {
+
+
+        BonSortie updatingBonSortie = bonSortieRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("BonSortie not found id : "+ id));
+        if (updatingBonSortie.getStatut() != StatutBonSortie.BROUILLON) {
+            throw new IllegalStateException("Only BROUILLON status can be validated");
+        }
+        List<BonSortieItem> sortieItems = updatingBonSortie.getItems();
+        List<Long> itemProduitIdList = sortieItems.stream().map(item -> item.getProduit().getId()).toList();
+        List<Stock> stockWithProduit = stockRepository.findAll().stream()
+                .filter(stock -> itemProduitIdList.contains(stock.getProduit().getId()) && stock.getQuantiteActuel() > 0)
+                .sorted(Comparator.comparing(Stock::getDateEntre))
+                .toList();
+
+
+        sortieItems.forEach(item -> {
+            List<Stock> stockForThisProduit = stockWithProduit.stream()
+                    .filter(stock -> stock.getProduit().getId().equals(item.getProduit().getId()) )
+                    .toList();
+            int totalAvailable = stockForThisProduit.stream()
+                    .mapToInt(Stock::getQuantiteActuel)
+                    .sum();
+            int quantite = item.getQuantite();
+
+            if (quantite > totalAvailable) {
+                throw new IllegalArgumentException("Insufficient stock for product: " + item.getProduit().getId() + " current stock : " + totalAvailable);
+            }
+
+
+            for (Stock stock : stockForThisProduit) {
+                if (quantite <= 0) break;
+
+                if (quantite >= stock.getQuantiteActuel()) {
+                    int stockQty = stock.getQuantiteActuel();
+                    quantite -= stock.getQuantiteActuel();
+                    MouvementStock mouvement = stockToMouvementMapper.toMouvementSortie(stock);
+
+                    stock.setQuantiteActuel(0);
+                    updateStock(stock);
+
+                    mouvementStockRepository.save(mouvement);
+                    updateProduit(stock.getProduit().getId(),stockQty);
+
+                } else {
+                    addMouvementSortie(stock,quantite);
+                    updateProduit(stock.getProduit().getId(), quantite);
+                    stock.setQuantiteActuel(stock.getQuantiteActuel() - quantite);
+                    updateStock(stock);
+
+                    quantite = 0;
+                }
+
+            }
+        });
+        updatingBonSortie.setStatut(StatutBonSortie.VALIDE);
+        bonSortieRepository.save(updatingBonSortie);
+
+
+        return Map.of("status","VALIDE");
+    }
+
+
+
+    private Produit getProduitById(Long id)  {
+        return produitRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Produit not found id : "+ id));
+    }
+
+    private Produit updateProduit(Long id,int quantite){
+        Produit produit = getProduitById(id);
+        produit.setStockActuel(produit.getStockActuel() - quantite);
+        return produitRepository.save(produit);
+    }
+    private Stock updateStock(Stock stock) {
+        return stockRepository.save(stock);
+    }
+    private void deleteStock(Stock stock){
+        stockRepository.delete(stock);
+    }
+    private MouvementStock addMouvementSortie(Stock stock,int quantite){
+        MouvementStock mouvementStockSortie = stockToMouvementMapper.toMouvementSortie(stock);
+        mouvementStockSortie.setQuantite(quantite);
+
+       return  mouvementStockRepository.save(mouvementStockSortie);
     }
 
 

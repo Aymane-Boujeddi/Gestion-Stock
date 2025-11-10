@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 
 @RestController
@@ -38,7 +39,12 @@ public class BonSortieController {
     }
     @PutMapping("/{id}/annuler")
     public ResponseEntity<BonSortieResponseDTO> updateBonSortieToAnnuler(@PathVariable Long id){
-        return ResponseEntity.ok();
+        return ResponseEntity.ok(bonSortieService.updateBonSortieToAnnuler(id));
+    }
+
+    @PutMapping("/{id}/valider")
+    public ResponseEntity<Map<String , Object>> updateBonSortieToValider(@PathVariable Long id){
+        return ResponseEntity.ok(bonSortieService.updateBonSortieToValider(id));
     }
 
 }

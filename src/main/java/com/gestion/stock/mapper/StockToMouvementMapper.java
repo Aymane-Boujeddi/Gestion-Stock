@@ -15,4 +15,13 @@ public interface StockToMouvementMapper {
     @Mapping(target = "dateMouvement", expression = "java(java.time.LocalDateTime.now())")
     @Mapping(target = "typeMouvement",expression = "java(com.gestion.stock.enums.TypeMouvement.ENTREE)")
     MouvementStock toMouvementEntre(Stock stock);
+
+    @Mapping(target = "id",ignore = true)
+    @Mapping(target = "quantite",source = "quantiteActuel")
+    @Mapping(target = "stock",source = "stock")
+    @Mapping(target = "dateMouvement", expression = "java(java.time.LocalDateTime.now())")
+    @Mapping(target = "typeMouvement",expression = "java(com.gestion.stock.enums.TypeMouvement.SORTIE)")
+    MouvementStock toMouvementSortie(Stock stock);
+
+
 }
