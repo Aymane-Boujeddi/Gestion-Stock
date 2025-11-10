@@ -21,7 +21,7 @@ public abstract class BonSortieItemMapper {
 
     @Mapping(target = "produit",source = "produitId",qualifiedByName = "idToProduit")
     @Mapping(target = "quantite", source = "quantite")
-   abstract BonSortieItem toEntity(BonSortieItemRequestDTO bonSortieItemRequestDTO);
+   public abstract BonSortieItem toEntity(BonSortieItemRequestDTO bonSortieItemRequestDTO);
 
 
     @Mapping(target = "quantite",source = "quantite")
